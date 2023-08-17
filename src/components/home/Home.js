@@ -5,122 +5,7 @@ import "./Home.scss";
 function Home() {
   return (
     <div id="top">
-      <header class="header" data-header>
-        <div class="container">
-          <div class="overlay" data-overlay></div>
 
-          <a href="./index.html" class="logo">
-            <img
-              src={Logo}
-              alt="Filmlane logo"
-            />
-          </a>
-
-          <div class="header-actions">
-            <button class="search-btn">
-              <ion-icon name="search-outline"></ion-icon>
-            </button>
-
-            <div class="lang-wrapper">
-              <label for="language">
-                <ion-icon name="globe-outline"></ion-icon>
-              </label>
-
-              <select name="language" id="language">
-                <option value="en">EN</option>
-                <option value="au">AU</option>
-                <option value="ar">AR</option>
-                <option value="tu">TU</option>
-              </select>
-            </div>
-
-            <button class="btn btn-primary">Sign in</button>
-          </div>
-
-          <button class="menu-open-btn" data-menu-open-btn>
-            <ion-icon name="reorder-two"></ion-icon>
-          </button>
-
-          <nav class="navbar" data-navbar>
-            <div class="navbar-top">
-              <a href="./index.html" class="logo">
-                <img
-                  src={Logo}
-                  alt="Filmlane logo"
-                />
-              </a>
-
-              <button class="menu-close-btn" data-menu-close-btn>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
-
-            <ul class="navbar-list">
-              <li>
-                <a href="./index.html" class="navbar-link">
-                  Home
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-link">
-                  Movie
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-link">
-                  Tv Show
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-link">
-                  Web Series
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-link">
-                  Pricing
-                </a>
-              </li>
-            </ul>
-
-            <ul class="navbar-social-list">
-              <li>
-                <a href="#" class="navbar-social-link">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-social-link">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-social-link">
-                  <ion-icon name="logo-pinterest"></ion-icon>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-social-link">
-                  <ion-icon name="logo-instagram"></ion-icon>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="navbar-social-link">
-                  <ion-icon name="logo-youtube"></ion-icon>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
 
       <main>
         <article>
@@ -170,33 +55,33 @@ function Home() {
             </div>
           </section>
 
-          <section class="upcoming">
-            <div class="container">
-              <div class="flex-wrapper">
-                <div class="title-wrapper">
-                  <p class="section-subtitle">Online Streaming</p>
+          <section className="upcoming">
+            <div className="container">
+              <div className="flex-wrapper">
+                <div className="title-wrapper">
+                  <p className="section-subtitle">Online Streaming</p>
 
-                  <h2 class="h2 section-title">Upcoming Movies</h2>
+                  <h2 className="h2 section-title">Upcoming Movies</h2>
                 </div>
 
-                <ul class="filter-list">
+                <ul className="filter-list">
                   <li>
-                    <button class="filter-btn">Movies</button>
+                    <button className="filter-btn">Movies</button>
                   </li>
 
                   <li>
-                    <button class="filter-btn">TV Shows</button>
+                    <button className="filter-btn">TV Shows</button>
                   </li>
 
                   <li>
-                    <button class="filter-btn">Anime</button>
+                    <button className="filter-btn">Anime</button>
                   </li>
                 </ul>
               </div>
 
-              <ul class="movies-list  has-scrollbar">
+              <ul className="movies-list  has-scrollbar">
                 <li>
-                  <div class="movie-card">
+                  <div className="movie-card">
                     <a href="./movie-details.html">
                       <figure class="card-banner">
                         <img
@@ -206,24 +91,24 @@ function Home() {
                       </figure>
                     </a>
 
-                    <div class="title-wrapper">
+                    <div className="title-wrapper">
                       <a href="./movie-details.html">
-                        <h3 class="card-title">The Northman</h3>
+                        <h3 className="card-title">The Northman</h3>
                       </a>
 
-                      <time datetime="2022">2022</time>
+                      <time dateTime="2022">2022</time>
                     </div>
 
-                    <div class="card-meta">
-                      <div class="badge badge-outline">HD</div>
+                    <div className="card-meta">
+                      <div className="badge badge-outline">HD</div>
 
-                      <div class="duration">
+                      <div className="duration">
                         <ion-icon name="time-outline"></ion-icon>
 
-                        <time datetime="PT137M">137 min</time>
+                        <time dateTime="PT137M">137 min</time>
                       </div>
 
-                      <div class="rating">
+                      <div className="rating">
                         <ion-icon name="star"></ion-icon>
 
                         <data>8.5</data>
@@ -243,9 +128,9 @@ function Home() {
                       </figure>
                     </a>
 
-                    <div class="title-wrapper">
+                    <div className="title-wrapper">
                       <a href="./movie-details.html">
-                        <h3 class="card-title">
+                        <h3 className="card-title">
                           Doctor Strange in the Multiverse of Madness
                         </h3>
                       </a>
@@ -424,31 +309,31 @@ function Home() {
             </div>
           </section>
 
-          <section class="top-rated">
-            <div class="container">
-              <p class="section-subtitle">Online Streaming</p>
+          <section className="top-rated">
+            <div className="container">
+              <p className="section-subtitle">Online Streaming</p>
 
-              <h2 class="h2 section-title">Top Rated Movies</h2>
+              <h2 className="h2 section-title">Top Rated Movies</h2>
 
-              <ul class="filter-list">
+              <ul className="filter-list">
                 <li>
-                  <button class="filter-btn">Movies</button>
+                  <button className="filter-btn">Movies</button>
                 </li>
 
                 <li>
-                  <button class="filter-btn">TV Shows</button>
+                  <button className="filter-btn">TV Shows</button>
                 </li>
 
                 <li>
-                  <button class="filter-btn">Documentary</button>
+                  <button className="filter-btn">Documentary</button>
                 </li>
 
                 <li>
-                  <button class="filter-btn">Sports</button>
+                  <button className="filter-btn">Sports</button>
                 </li>
               </ul>
 
-              <ul class="movies-list">
+              <ul class="movies-list has-scrollbar">
                 <li>
                   <div class="movie-card">
                     <a href="./movie-details.html">
@@ -877,24 +762,24 @@ function Home() {
                       </figure>
                     </a>
 
-                    <div class="title-wrapper">
+                    <div className="title-wrapper">
                       <a href="./movie-details.html">
                         <h3 class="card-title">Money Heist</h3>
                       </a>
 
-                      <time datetime="2017">2017</time>
+                      <time dateTime="2017">2017</time>
                     </div>
 
-                    <div class="card-meta">
-                      <div class="badge badge-outline">4K</div>
+                    <div className="card-meta">
+                      <div className="badge badge-outline">4K</div>
 
                       <div class="duration">
                         <ion-icon name="time-outline"></ion-icon>
 
-                        <time datetime="PT70M">70 min</time>
+                        <time dateTime="PT70M">70 min</time>
                       </div>
 
-                      <div class="rating">
+                      <div className="rating">
                         <ion-icon name="star"></ion-icon>
 
                         <data>8.3</data>
@@ -983,51 +868,51 @@ function Home() {
             <div class="quicklink-wrapper">
               <ul class="quicklink-list">
                 <li>
-                  <a href="#" class="quicklink-link">
+                  <a href="#" className="quicklink-link">
                     Faq
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" class="quicklink-link">
+                  <a href="#" className="quicklink-link">
                     Help center
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" class="quicklink-link">
+                  <a href="#" className="quicklink-link">
                     Terms of use
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" class="quicklink-link">
+                  <a href="#" className="quicklink-link">
                     Privacy
                   </a>
                 </li>
               </ul>
 
-              <ul class="social-list">
+              <ul className="social-list">
                 <li>
-                  <a href="#" class="social-link">
+                  <a href="#" className="social-link">
                     <ion-icon name="logo-facebook"></ion-icon>
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" class="social-link">
+                  <a href="#" className="social-link">
                     <ion-icon name="logo-twitter"></ion-icon>
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" class="social-link">
+                  <a href="#" className="social-link">
                     <ion-icon name="logo-pinterest"></ion-icon>
                   </a>
                 </li>
 
                 <li>
-                  <a href="#" class="social-link">
+                  <a href="#" className="social-link">
                     <ion-icon name="logo-linkedin"></ion-icon>
                   </a>
                 </li>
@@ -1036,22 +921,22 @@ function Home() {
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <div class="container">
-            <p class="copyright">
+        <div className="footer-bottom">
+          <div className="container">
+            <p className="copyright">
               &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
             </p>
 
             <img
               src={require("./../../assets/images/footer-bottom-img.png")}
               alt="Online banking companies logo"
-              class="footer-bottom-img"
+              className="footer-bottom-img"
             />
           </div>
         </div>
       </footer>
 
-      <a href="#top" class="go-top" data-go-top>
+      <a href="#top" className="go-top" data-go-top>
         <ion-icon name="chevron-up"></ion-icon>
       </a>
     </div>
