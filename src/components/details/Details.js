@@ -1,25 +1,44 @@
 import React from "react";
+// import * as url from "url";
 
 function Details(){
+    const movieDetail ={
+  backgroundImage: "url(https://image.tmdb.org/t/p/original/k0hlAzTryCYX1O1LyC6P8tAa8s0.jpg)",
+  backgroundSize:"cover",
+  backgroundPosition: 'center',
+  marginTop:'70px',
+  backgroundRepeat: 'no-repeat',
+  paddingBottom: 'var(--section-padding)',
+  width:'100%',
+  height:"500px",
+        borderStyle:'inset',
+}
+
+
     return(
-        <div className={'top-margin-details-list'}>
+        <div >
             <main>
                 <article>
-
-                    <section className="movie-detail">
+                    <section style={movieDetail} className={'top-margin-details-list transitionImage'}>
                         <div className="container">
 
+                            {/*<button className="play-btn">*/}
+                            {/*    <ion-icon name="play-circle-outline" ></ion-icon>*/}
+                            {/*</button>*/}
+                        </div>
+                    </section>
+
+                        <div style={{marginTop:'-300px', marginLeft:'70px'}}>
                             <figure className="movie-detail-banner">
 
                                 <img src={require("./../../assets/images/movie-4.png")} alt="Free guy movie poster"/>
 
-                                    <button className="play-btn">
-                                        <ion-icon name="play-circle-outline"></ion-icon>
-                                    </button>
 
                             </figure>
-
-                            <div className="movie-detail-content">
+                        </div>
+                    <div>
+                    <div>
+                        <div className="movie-detail-content">
 
                                 <p className="detail-subtitle">New Episodes</p>
 
@@ -92,19 +111,14 @@ function Details(){
 
                                 </div>
 
-                                <a href="#" download className="download-btn">
-                                    <span>Download</span>
+                                {/*<a href="#" download className="download-btn">*/}
+                                {/*    <span>Download</span>*/}
 
-                                    <ion-icon name="download-outline"></ion-icon>
-                                </a>
+                                {/*    <ion-icon name="download-outline"></ion-icon>*/}
+                                {/*</a>*/}
 
                             </div>
-
-                        </div>
-                    </section>
-
-
-
+                    </div>
 
                     <section className="tv-series">
                         <div className="container">
@@ -264,7 +278,7 @@ function Details(){
 
                         </div>
                     </section>
-
+                    </div>
                 </article>
             </main>
 

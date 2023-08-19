@@ -4,8 +4,8 @@ import Logo from "../../assets/images/logo.svg";
 function Header(){
     return(
         <div>
-            <header className="header header-color-details" data-header >
-                <div className="container" >
+            <header className="header header-color-details"  data-header >
+                <div className="container" style={{backgroundColor:'#171c22'}}>
                     <div className="overlay" data-overlay></div>
 
                     <a href="./index.html" className="logo">

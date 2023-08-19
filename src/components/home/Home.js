@@ -819,9 +819,9 @@ function Home() {
         </article>
       </main>
 
-      <footer class="footer">
-        <div class="footer-top">
-          <div class="container">
+      <footer class="footer" >
+        <div class="footer-top" >
+          <div class="container" >
             <div class="footer-brand-wrapper">
               <a href="./index.html" class="logo">
                 <img
