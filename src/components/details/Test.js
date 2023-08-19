@@ -5,13 +5,11 @@ function Test(){
       backgroundImage: "url(https://image.tmdb.org/t/p/original/k0hlAzTryCYX1O1LyC6P8tAa8s0.jpg)",
       backgroundSize:"100%",
       backgroundPosition: 'center',
-      marginTop:'70px',
       backgroundRepeat: 'no-repeat',
       width:'100%',
       opacity:'1',
       position:"relative",
       zIndex:1,
-      height:"500px",
       // overflow:"hidden"
 
 
@@ -20,7 +18,7 @@ function Test(){
     return(
         <div >
                 <div>
-                    <div style={movieDetail} className={'transitionImage'}>
+                    <div style={movieDetail} className={'transitionImage topMargin-20 height-500 height-300' }>
                         <div className="container">
 
                             <button className="play-btn">

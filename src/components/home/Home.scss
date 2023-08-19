@@ -410,9 +410,10 @@ body.active {
   top: 0;
   left: 0;
   width: 100%;
-  padding-block: 25px;
+  padding-block: 10px;
   transition: var(--transition-2);
   z-index: 4;
+  background: var(--eerie-black);
 }
 
 .header.active {

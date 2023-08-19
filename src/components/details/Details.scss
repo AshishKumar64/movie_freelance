@@ -58,6 +58,24 @@
   box-sizing: border-box; /* Include padding in the width calculation */
 }
 
+//.cardForBorderComponent{
+//  border-style:outset;
+//  height:auto;
+//  width:auto;
+//  color:black;
+//  z-index:1;
+//  margin-top:-50px;
+//  border-color: black;
+//  position:relative;
+//  background-color: #171c22;
+//}
+.container-details-page-image-genre {
+  padding-inline: 15px;
+}
+.height-500{
+  height: 500px;
+}
+@media screen and (min-width: 765px){
 .cardForBorderComponent{
   border-style:outset;
   height:auto;
@@ -67,10 +85,7 @@
   margin-top:-50px;
   border-color: black;
   position:relative;
-  background-color: #171c22;
-}
-.container-details-page-image-genre {
-  padding-inline: 15px;
+  background-color: #171c22;}
 }
 
 @media screen and (max-width: 765px) {
@@ -87,15 +102,12 @@
   .margin-left-for-card{
     margin-left: 0;
   }
-  .cardForBorderComponent{
-  //border-style:outset;
-  //height:auto;
-  width:100%;
-  color:black;
-  //z-index:1;
-  //margin-top:-50px;
-  //border-color: black;
-  //position:relative;
-}
+  .height-300{
+    height: 300px;
+  }
+  //.topMargin-20{
+  //  margin-top:0px;
+  //}
+
 
 }
