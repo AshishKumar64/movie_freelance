@@ -1,3 +1,65 @@
+.tv-series {
+  background: url("./../../assets/images/tv-series-bg.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding-block: var(--section-padding);
+}
+:root {
+  /**
+     * colors
+     */
+
+  --rich-black-fogra-29: hsl(225, 25%, 9%);
+  --rich-black-fogra-39: hsl(170, 21%, 5%);
+  --raisin-black: hsl(228, 13%, 15%);
+  --eerie-black: hsl(207, 19%, 11%);
+  --light-gray: hsl(0, 3%, 80%);
+  --gunmetal-1: hsl(153, 18%, 22%);
+  --gunmetal-2: hsl(216, 22%, 18%);
+  --gainsboro: hsl(0, 7%, 88%);
+  --citrine: hsl(57, 97%, 45%);
+  --xiketic: hsl(253, 21%, 13%);
+  --gray-x: hsl(0, 0%, 74%);
+  --white: hsl(0, 100%, 100%);
+  --black: hsl(0, 0%, 0%);
+  --jet: hsl(0, 0%, 20%);
+
+  /**
+     * typography
+     */
+
+  --ff-poppins: "Poppins", sans-serif;
+
+  --fs-1: 36px;
+  --fs-2: 32px;
+  --fs-3: 30px;
+  --fs-4: 24px;
+  --fs-5: 20px;
+  --fs-6: 18px;
+  --fs-7: 16px;
+  --fs-8: 15px;
+  --fs-9: 14px;
+  --fs-10: 13px;
+  --fs-11: 12px;
+  --fs-12: 11px;
+
+  --fw-500: 500;
+  --fw-700: 700;
+
+  /**
+     * transition
+     */
+
+  --transition-1: 0.15s ease;
+  --transition-2: 0.25s ease-in;
+
+  /**
+     * spacing
+     */
+
+  --section-padding: 1px;
+}
+
 .top-margin-details-list{
   margin-top: 90px;
 }
@@ -30,16 +92,52 @@
   margin-right: 10px;
 }
 .colorWhite{
+  color: white;
+}
+.textAlignItemForCenter{
+  text-align: center;
+}
+
+.colorWhite:hover{
   color: yellow;
 }
 
-
+.marginBottom12{
+  margin-bottom: 12px;
+}
 
 .flex-common-container {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap to a new line if needed */
   align-items: flex-start; /* Align items at the top */
 }
+.flex-common-container-offers-heading {
+  display: flex;
+  overflow-x: auto;
+}
+.border-auto {
+  border: 1px solid #333; /* Border style */
+  display: inline-block; /* Display as inline-block to fit content */
+  padding: 10px; /* Add some padding for spacing */
+}
+.border-auto-offers{
+  border: 2px solid black; /* Border style */
+  display: inline-block; /* Display as inline-block to fit content */
+  padding: 10px; /* Add some padding for spacing */
+}
+.border-auto-offers:hover {
+  border: 2px solid #333; /* Border style */
+  display: inline-block; /* Display as inline-block to fit content */
+  padding: 10px; /* Add some padding for spacing */
+  //background-color: yellow;
+}
+
+.flex-common-container-offers{
+  display: flex;
+  gap: 70px;
+}
+//justify-content: space-between
+
 
 .left-common-item {
   flex: 0 0 200px; /* Fixed width for the left item */
@@ -57,18 +155,13 @@
   //border: 1px solid #ccc;
   box-sizing: border-box; /* Include padding in the width calculation */
 }
+.margin-left-5px{
+  margin-left: 5px;
+}
+.margin-bottom-offers{
+  margin-bottom: 5px;
+}
 
-//.cardForBorderComponent{
-//  border-style:outset;
-//  height:auto;
-//  width:auto;
-//  color:black;
-//  z-index:1;
-//  margin-top:-50px;
-//  border-color: black;
-//  position:relative;
-//  background-color: #171c22;
-//}
 .container-details-page-image-genre {
   padding-inline: 15px;
 }

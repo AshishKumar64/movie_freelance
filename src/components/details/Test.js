@@ -1,8 +1,45 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './Details.scss'
+import Offers from "./Offers";
 function Test(){
+    const [postData, setPostData] = useState([]);
+    const [popularData, setPopularData] = useState([]);
+    useEffect(() => {
+    fetchPostData();
+    fetchPopularData();
+  }, []);
+    const fetchPostData = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/movies-shows-by-id', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ contentID: 2 }),
+      });
+      const jsonData = await response.json();
+      setPostData(jsonData);
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }
+  };
+    const fetchPopularData = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/home', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ contentID: 3 }),
+      });
+      const jsonData = await response.json();
+      setPopularData(jsonData);
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }
+  };
     const movieDetail ={
-      backgroundImage: "url(https://image.tmdb.org/t/p/original/k0hlAzTryCYX1O1LyC6P8tAa8s0.jpg)",
+      backgroundImage: postData ? 'url(https://image.tmdb.org/t/p/original/or0E36KfzJYZwqXeiCfm1JgepKF.jpg)': 'url(https://image.tmdb.org/t/p/original/'+postData['backdropImages'][0]['image_url']+')',
       backgroundSize:"100%",
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -10,15 +47,27 @@ function Test(){
       opacity:'1',
       position:"relative",
       zIndex:1,
-      // overflow:"hidden"
-
-
-
 }
+    console.log(postData,'0000000')
+    // console.log('url(https://image.tmdb.org/t/p/original/'+postData['backdropImages']+')','------')
+    try{
+        console.log(postData['contentDetails'])
+    }catch (err){
+        console.log(err)
+    }
     return(
-        <div >
+        <div >{ postData['contentDetails'] && popularData['popularShow'] &&
                 <div>
-                    <div style={movieDetail} className={'transitionImage topMargin-20 height-500 height-300' }>
+                    <div style={{
+      backgroundImage: 'url(https://image.tmdb.org/t/p/original/'+postData['backdropImages'][0]['image_url']+')',
+      backgroundSize:"100%",
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      width:'100%',
+      opacity:'1',
+      position:"relative",
+      zIndex:1,
+}} className={'transitionImage topMargin-20 height-500 height-300' }>
                         <div className="container">
 
                             <button className="play-btn">
@@ -29,33 +78,29 @@ function Test(){
                     <div className={'container cardForBorderComponent'} >
                         <div className={'flex-common-container'}>
                                <div className={'left-common-item screen-banner-for-detail-page'}>
-                                   <img className={'imageSize'} src={require("./../../assets/images/movie-4.png")} alt="Free guy movie poster"/>
+                                   <img className={'imageSize'} src={"https://image.tmdb.org/t/p/original/"+postData['posterImage']['image_url']} alt="Free guy movie poster"/>
                                </div>
                                 <div className={'right-common-item '}>
                                    <div className="movie-detail-content">
 
-                                <p className="detail-subtitle">New Episodes</p>
+                                {/*<p className="detail-subtitle">New Episodes</p>*/}
 
-                                <h1 className="h1 detail-title">
-                                    Free <strong>Guy</strong>
-                                </h1>
+                                <span className="h1 detail-title">
+                                    {postData['contentDetails']['title']}
+                                </span>
 
                                 <div className="meta-wrapper">
 
                                     <div className="badge-wrapper">
-                                        <div className="badge badge-fill">PG 13</div>
+                                        <div className="badge badge-fill">{postData['contentDetails']['age_certification']}</div>
 
                                         <div className="badge badge-outline">HD</div>
                                     </div>
 
                                     <div className="ganre-wrapper">
-                                        <a href="#">Comedy,</a>
-
-                                        <a href="#">Action,</a>
-
-                                        <a href="#">Adventure,</a>
-
-                                        <a href="#">Science Fiction</a>
+                                        {postData['genreDetails'].map(item=>(
+                                           <a href="#">{item['name']},</a>
+                                        ))}
                                     </div>
 
                                     <div className="date-time">
@@ -63,13 +108,13 @@ function Test(){
                                         <div>
                                             <ion-icon name="calendar-outline"></ion-icon>
 
-                                            <time dateTime="2021">2021</time>
+                                            <time dateTime="2021">{postData['contentDetails']['release_date']}</time>
                                         </div>
 
                                         <div>
                                             <ion-icon name="time-outline"></ion-icon>
 
-                                            <time dateTime="PT115M">115 min</time>
+                                            <time dateTime="PT115M">{postData['contentDetails']['runtime_in_minutes']}</time>
                                         </div>
 
                                     </div>
@@ -82,68 +127,111 @@ function Test(){
                                     City that will
                                     soon go offline.
                                 </p>
+                                {/*       offers ------------------------------*/}
 
-                                <div className="details-actions">
+                                <Offers offersData={postData['offers']}></Offers>
+                                {/*<div>*/}
+                                {/*    {postData['offers'].map(items=>(*/}
+                                {/*        <div className="details-actions">*/}
 
-                                    <button className="share">
-                                        <ion-icon name="share-social"></ion-icon>
+                                {/*        <button className="share">*/}
+                                {/*            <ion-icon name="share-social"></ion-icon>*/}
 
-                                        <span>Share</span>
-                                    </button>
+                                {/*            <span>Share</span>*/}
+                                {/*        </button>*/}
 
-                                    <div className="title-wrapper">
-                                        <p className="title">Prime Video</p>
+                                {/*        <div className="title-wrapper">*/}
+                                {/*            <p className="title">{items['providerDislayName']}</p>*/}
+                                {/*            <p className={'text'}>{items['moni']}</p>*/}
+                                {/*            <p className="text">{items['cnd_code']}</p>*/}
+                                {/*        </div>*/}
 
-                                        <p className="text">Streaming Channels</p>
-                                    </div>
+                                {/*        <button className="btn btn-primary">*/}
+                                {/*            <ion-icon name="play"></ion-icon>*/}
 
-                                    <button className="btn btn-primary">
-                                        <ion-icon name="play"></ion-icon>
+                                {/*            <span>Watch Now</span>*/}
+                                {/*        </button>*/}
+                                {/*    </div>*/}
+                                {/*    ))}*/}
 
-                                        <span>Watch Now</span>
-                                    </button>
+                                {/*</div>*/}
 
-                                </div>
                                    </div>
                                </div>
 
                         </div>
                         <div>
-                            <span style={{color:'yellow'}}>Video Trailer</span>
+                            <span className={'colorWhite marginBottom12'}>Video Trailer, Teaser, Clips</span>
                             <ul className="movies-list has-scrollbar">
-                                <li>
-                                    <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-                                </li>
-                                <li>
-                                    <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-                                </li>
-                                <li>
-                                    <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-                                </li>
+                            {postData['videoClipsData'].map(items=>(
 
-                            </ul>
+                                <li>
+                                    <iframe width="420" height="315" src={"https://www.youtube.com/embed/"+items['source_id']}></iframe>
+                                    <span className={'colorWhite'}>{items['title']}</span>
+                                </li>
+                            ))}
+                                </ul>
                         </div>
-                             <section className="tv-series">
-                        <div className="container margin-left-for-card">
-                            <h2 className="h2">Popular Web Series</h2>
+
+
+                        <div>
+                            <span className={'colorWhite marginBottom12'}>Cast - {postData['contentDetails']['title']}</span>
+                            <ul className="movies-list has-scrollbar">
+                            {postData['cast'].map(items=>(
+
+                                <li>
+                                    <img width="150" height="200" src={"https://image.tmdb.org/t/p/original/"+items['profile_path']} alt={'k'}/>
+                                    <span className={'colorWhite textAlignItemForCenter'} title={'Real Name'}>{items['real_name']}</span>
+                                    <hr/>
+                                    <span className={'colorWhite textAlignItemForCenter'} title={'Role'}>{items['character_name']}</span>
+                                </li>
+                            ))}
+                                </ul>
+                        </div>
+                            <hr/>
+
+                        <div>
+                            <span className={'colorWhite marginBottom12'}>Crew - {postData['contentDetails']['title']}</span>
+                            <ul className="movies-list has-scrollbar">
+                            {postData['crew'].map(items=>(
+
+                                <li>
+                                    <img width="150" height="200" src={"https://image.tmdb.org/t/p/original/"+items['profile_path']} alt={'k'}/>
+                                    <span className={'colorWhite textAlignItemForCenter'} title={'Real Name'}>{items['real_name']}</span>
+                                    <hr/>
+                                    <span className={'colorWhite textAlignItemForCenter'} title={'Role'}>{items['character_name']}</span>
+                                </li>
+                            ))}
+                                </ul>
+                        </div>
+
+
+                        <section className="tv-series">
+
+                        <div>
+
+                                <div className="container margin-left-for-card">
+                            <h2 className="h2 colorWhite">Similar Movies</h2>
 
                             <ul className="movies-list has-scrollbar">
 
-                                <li>
-                                    <div className="movie-card">
+
+                                    {postData['similar'].map(items=>(
+                                        <li>
+                                        <div className="movie-card">
 
                                         <a href="#">
                                             <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-1.png")} alt="Moon Knight movie poster"/>
+                                                <img src={'https://image.tmdb.org/t/p/original/'+items['posterImage']['image_url']} alt="Moon Knight movie poster"/>
                                             </figure>
                                         </a>
 
                                         <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Moon Knight</h3>
+                                            <a href={items['seoUrl']}>
+                                                <h3 className="card-title">{items['title']}</h3>
                                             </a>
 
-                                            <time dateTime="2022">2022</time>
+                                            {/*<time dateTime="2022">{items['']}</time>*/}
                                         </div>
 
                                         <div className="card-meta">
@@ -163,431 +251,130 @@ function Test(){
                                         </div>
 
                                     </div>
-                                </li>
+                                      </li>
+                                    ))}
 
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-2.png")} alt="Halo movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Halo</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT59M">59 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.8</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-3.png")}
-                                                     alt="Vikings: Valhalla movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Vikings: Valhalla</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT51M">51 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.3</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-4.png")} alt="Money Heist movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Money Heist</h3>
-                                            </a>
-
-                                            <time dateTime="2017">2017</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">4K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT70M">70 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.3</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
 
                             </ul>
 
                         </div>
-                        <div className="container margin-left-for-card">
-                            <h2 className="h2">Popular Movies</h2>
 
-                            <ul className="movies-list has-scrollbar">
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-1.png")} alt="Moon Knight movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Moon Knight</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT47M">47 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.6</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-2.png")} alt="Halo movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Halo</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT59M">59 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.8</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-3.png")}
-                                                     alt="Vikings: Valhalla movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Vikings: Valhalla</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT51M">51 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.3</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-4.png")} alt="Money Heist movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Money Heist</h3>
-                                            </a>
-
-                                            <time dateTime="2017">2017</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">4K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT70M">70 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.3</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                            </ul>
-
-                        </div>
-                        <div className="container margin-left-for-card">
-                            <h2 className="h2">Best Movies & Shows </h2>
-
-                            <ul className="movies-list has-scrollbar">
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-1.png")} alt="Moon Knight movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Moon Knight</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT47M">47 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.6</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-2.png")} alt="Halo movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Halo</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT59M">59 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.8</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-3.png")}
-                                                     alt="Vikings: Valhalla movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Vikings: Valhalla</h3>
-                                            </a>
-
-                                            <time dateTime="2022">2022</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">2K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT51M">51 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.3</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div className="movie-card">
-
-                                        <a href="#">
-                                            <figure className="card-banner">
-                                                <img src={require("./../../assets/images/series-4.png")} alt="Money Heist movie poster"/>
-                                            </figure>
-                                        </a>
-
-                                        <div className="title-wrapper">
-                                            <a href="#">
-                                                <h3 className="card-title">Money Heist</h3>
-                                            </a>
-
-                                            <time dateTime="2017">2017</time>
-                                        </div>
-
-                                        <div className="card-meta">
-                                            <div className="badge badge-outline">4K</div>
-
-                                            <div className="duration">
-                                                <ion-icon name="time-outline"></ion-icon>
-
-                                                <time dateTime="PT70M">70 min</time>
-                                            </div>
-
-                                            <div className="rating">
-                                                <ion-icon name="star"></ion-icon>
-
-                                                <data>8.3</data>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                            </ul>
 
                         </div>
                     </section>
+
+                        <div>
+
+                                <div className="container margin-left-for-card">
+                            <h2 className="h2 colorWhite">Popular Web-Series</h2>
+
+                            <ul className="movies-list has-scrollbar">
+
+
+                                    {popularData['popularShow'].map(items=>(
+                                        <li>
+                                        <div className="movie-card">
+
+                                        <a href="#">
+                                            <figure className="card-banner">
+                                                <img src={'https://image.tmdb.org/t/p/original/'+items['_source']['posterImage']['image_url']} alt="Moon Knight movie poster"/>
+                                            </figure>
+                                        </a>
+
+                                        <div className="title-wrapper">
+                                            <a href={items['_source']['seo']['seoUrl']}>
+                                                <h3 className="card-title">{items['_source']['contentDetails']['title']}</h3>
+                                            </a>
+
+                                            {/*<time dateTime="2022">{items['']}</time>*/}
+                                        </div>
+
+                                        <div className="card-meta">
+                                            <div className="badge badge-outline">2K</div>
+
+                                            <div className="duration">
+                                                <ion-icon name="time-outline"></ion-icon>
+
+                                                {/*<time dateTime="PT47M">47 min</time>*/}
+                                            </div>
+
+                                            <div className="rating">
+                                                <ion-icon name="star"></ion-icon>
+
+                                                <data>8.6</data>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                      </li>
+                                    ))}
+
+
+                            </ul>
+
+                        </div>
+
+
+                        </div>
+
+                        <div>
+
+                                <div className="container margin-left-for-card">
+                            <h2 className="h2 colorWhite">Popular Movies</h2>
+
+                            <ul className="movies-list has-scrollbar">
+
+
+                                    {popularData['popularMovie'].map(items=>(
+                                        <li>
+                                        <div className="movie-card">
+
+                                        <a href="#">
+                                            <figure className="card-banner">
+                                                <img src={'https://image.tmdb.org/t/p/original/'+items['_source']['posterImage']['image_url']} alt="Moon Knight movie poster"/>
+                                            </figure>
+                                        </a>
+
+                                        <div className="title-wrapper">
+                                            <a href={items['_source']['seo']['seoUrl']}>
+                                                <h3 className="card-title">{items['_source']['contentDetails']['title']}</h3>
+                                            </a>
+
+                                            {/*<time dateTime="2022">{items['']}</time>*/}
+                                        </div>
+
+                                        <div className="card-meta">
+                                            <div className="badge badge-outline">2K</div>
+
+                                            <div className="duration">
+                                                <ion-icon name="time-outline"></ion-icon>
+
+                                                <time dateTime="PT47M">47 min</time>
+                                            </div>
+
+                                            <div className="rating">
+                                                <ion-icon name="star"></ion-icon>
+
+                                                <data>8.6</data>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                      </li>
+                                    ))}
+
+
+                            </ul>
+
+                        </div>
+
+
+                        </div>
+
                     </div>
 
                 </div>
-
+        }
 
         </div>
     )
